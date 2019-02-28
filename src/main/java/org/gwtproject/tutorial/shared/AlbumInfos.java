@@ -8,6 +8,11 @@ public class AlbumInfos {
 	
 	private List<AlbumInfo> results;
 
+	@Override
+	public String toString() {
+		return "AlbumInfos [resultCount=" + resultCount + ", results=" + results + "]";
+	}
+
 	public int getResultCount() {
 		return resultCount;
 	}
