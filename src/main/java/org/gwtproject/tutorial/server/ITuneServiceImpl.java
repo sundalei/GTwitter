@@ -18,26 +18,25 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import twitter4j.TwitterException;
-
 public class ITuneServiceImpl {
 	
-	public static final String URL = "https://itunes.apple.com/lookup?id=909253&entity=album";
+	public static final String URL = "https://itunes.apple.com/lookup?";
 	
-	public static void main(String[] args) throws TwitterException, ClientProtocolException, IOException {
+	public static void main(String[] args) throws IOException {
 		ITuneServiceImpl impl = new ITuneServiceImpl();
-		AlbumInfos response = impl.getUserTimeline();
+		AlbumInfos response = impl.getUserAblumInfo("909253");
 		System.out.println(response);
 	}
 	
-	public AlbumInfos getUserTimeline() throws TwitterException, ClientProtocolException, IOException {
-		String result = fetchAblumInfo();
+	public AlbumInfos getUserAblumInfo(String id) throws IOException {
+		String result = fetchAblumInfo(id);
 		return generateInfos(result);
 	}
 	
-	private String fetchAblumInfo() throws ClientProtocolException, IOException {
+	private String fetchAblumInfo(String id) throws ClientProtocolException, IOException {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(URL);
+		String url = URL + "id=" + id + "&entity=album";
+		HttpGet httpGet = new HttpGet(url);
 		CloseableHttpResponse response = httpClient.execute(httpGet);
 		HttpEntity entity = response.getEntity();
 		return EntityUtils.toString(entity);

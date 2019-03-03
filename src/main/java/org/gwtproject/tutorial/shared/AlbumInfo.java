@@ -1,6 +1,8 @@
 package org.gwtproject.tutorial.shared;
 
-public class AlbumInfo {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class AlbumInfo implements IsSerializable {
 	
 	private String collectionName;
 	

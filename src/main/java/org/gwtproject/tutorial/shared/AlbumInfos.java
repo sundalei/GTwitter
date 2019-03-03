@@ -2,7 +2,9 @@ package org.gwtproject.tutorial.shared;
 
 import java.util.List;
 
-public class AlbumInfos {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class AlbumInfos implements IsSerializable {
 	
 	private int resultCount;
 	
