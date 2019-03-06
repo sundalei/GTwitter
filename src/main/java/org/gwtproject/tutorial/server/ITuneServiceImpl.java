@@ -13,13 +13,16 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.gwtproject.tutorial.shared.AlbumInfo;
 import org.gwtproject.tutorial.shared.AlbumInfos;
+import org.gwtproject.tutorial.shared.ITuneService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class ITuneServiceImpl {
+public class ITuneServiceImpl extends RemoteServiceServlet implements ITuneService {
 	
+	private static final long serialVersionUID = 1L;
 	public static final String URL = "https://itunes.apple.com/lookup?";
 	
 	public static void main(String[] args) throws IOException {

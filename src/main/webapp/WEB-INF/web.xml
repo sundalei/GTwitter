@@ -16,6 +16,16 @@
     <url-pattern>/gtwitter/greet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  <servlet-name>ituneServlet</servlet-name>
+  <servlet-class>org.gwtproject.tutorial.server.ITuneServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>ituneServlet</servlet-name>
+  <url-pattern>/gtwitter/service</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>GTwitter.html</welcome-file>
