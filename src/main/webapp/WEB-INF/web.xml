@@ -4,31 +4,55 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
+	<context-param>
+		<param-name>gwt.xsrf.session_cookie_name</param-name>
+		<param-value>JSESSIONID</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>createSessionFilter</filter-name>
+		<filter-class>org.gwtproject.tutorial.server.ForceSessionCreationFilter</filter-class>
+	</filter>
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>org.gwtproject.tutorial.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/gtwitter/greet</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>ituneServlet</servlet-name>
-  <servlet-class>org.gwtproject.tutorial.server.ITuneServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  <servlet-name>ituneServlet</servlet-name>
-  <url-pattern>/gtwitter/service</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>GTwitter.html</welcome-file>
-  </welcome-file-list>
+	<filter-mapping>
+		<filter-name>createSessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>greetServlet</servlet-name>
+		<servlet-class>org.gwtproject.tutorial.server.GreetingServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>greetServlet</servlet-name>
+		<url-pattern>/gtwitter/greet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>xsrf</servlet-name>
+	<servlet-class>com.google.gwt.user.server.rpc.XsrfTokenServiceServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ituneServlet</servlet-name>
+		<servlet-class>org.gwtproject.tutorial.server.ITuneServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ituneServlet</servlet-name>
+		<url-pattern>/gtwitter/service</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	<servlet-name>xsrf</servlet-name>
+	<url-pattern>/gtwitter/xsrf</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>GTwitter.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>

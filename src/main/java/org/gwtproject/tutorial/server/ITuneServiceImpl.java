@@ -18,9 +18,9 @@ import org.gwtproject.tutorial.shared.ITuneService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.google.gwt.user.server.rpc.XsrfProtectedServiceServlet;
 
-public class ITuneServiceImpl extends RemoteServiceServlet implements ITuneService {
+public class ITuneServiceImpl extends XsrfProtectedServiceServlet implements ITuneService {
 	
 	private static final long serialVersionUID = 1L;
 	public static final String URL = "https://itunes.apple.com/lookup?";

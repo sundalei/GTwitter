@@ -6,11 +6,17 @@ import org.gwtproject.tutorial.shared.ITuneService;
 import org.gwtproject.tutorial.shared.ITuneServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.HasRpcToken;
+import com.google.gwt.user.client.rpc.RpcTokenException;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.rpc.XsrfToken;
+import com.google.gwt.user.client.rpc.XsrfTokenService;
+import com.google.gwt.user.client.rpc.XsrfTokenServiceAsync;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -49,8 +55,32 @@ public class GTwitter implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				ITuneServiceAsync service = GWT.create(ITuneService.class);
-				service.getUserAblumInfo(txtScreenName.getText(), updateTweetPanelCallback);
+				XsrfTokenServiceAsync xsrf = GWT.create(XsrfTokenService.class);
+				((ServiceDefTarget)xsrf).setServiceEntryPoint(GWT.getModuleBaseURL() + "xsrf");
+				
+				xsrf.getNewXsrfToken(new AsyncCallback<XsrfToken>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						try {
+                            throw caught;
+                        }
+                        catch (RpcTokenException e) {
+                            Window.alert("Error: " + e.getMessage());
+                        }
+                        catch (Throwable e) {
+                            Window.alert("Error: " + e.getMessage());
+                        }
+					}
+
+					@Override
+					public void onSuccess(XsrfToken result) {
+						ITuneServiceAsync service = GWT.create(ITuneService.class);
+						((HasRpcToken) service).setRpcToken(result);
+						service.getUserAblumInfo(txtScreenName.getText(), updateTweetPanelCallback);
+					}
+				});
+				
 			}
 			
 		});
